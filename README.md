@@ -17,7 +17,6 @@ variaveis: nome, descricao, valor, estoque<br>
 PUT http://localhost:8001/api/produtos/{ID}<br>
 variaveis: nome, descricao, valor, estoque<br>
 DELETE http://localhost:8001/api/produtos/{ID}<br>
-PRODUTO: (php artisan serve --port 8001)<br><br>
 
 PRODUTO: (php artisan serve --port 8001)<br>
 BANCO:<br>
