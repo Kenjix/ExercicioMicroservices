@@ -2,6 +2,7 @@
 CARRINHO: (php artisan serve --port 8000)
 
 BANCO:
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -25,6 +26,7 @@ DELETE http://localhost:8001/api/produtos/{ID}
 PRODUTO: (php artisan serve --port 8001)
 
 BANCO:
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
