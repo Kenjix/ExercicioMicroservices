@@ -1,8 +1,8 @@
 # ExercicioMicroservices
-<<<<<<< HEAD
-CARRINHO: (php artisan serve --port 8000)
 
 ![Arquiteruas](arquiteturas/arquiteturas.jpg)
+
+CARRINHO: (php artisan serve --port 8000)
 
 BANCO:
 DB_CONNECTION=mysql
@@ -41,7 +41,6 @@ variaveis: produto_id, quantidade, carrinho_id (se nulo cria um carrinho)
 
 DELETE: http://localhost:8000/api/carrinho/remove/{ID} (1 item exclui, > 1 decrementa)
 
-=======
 CARRINHO: (php artisan serve --port 8000)<br>
 
 BANCO:<br>
