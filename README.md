@@ -11,7 +11,7 @@ DB_DATABASE=carrinho_ms<br>
 DB_USERNAME=root<br>
 DB_PASSWORD=senha<br><br>
 ROTAS:<br>
-POST: http://localhost:8000/api/carrinho/add (Adiocona um produto no carrinho)<br> 
+POST: http://localhost:8000/api/carrinho/add (Adiciona um produto no carrinho)<br>
 variaveis: produto_id, quantidade, carrinho_id (se nulo cria um carrinho)<br>
 DELETE: http://localhost:8000/api/carrinho/remove/{ID} (Remove um produto do carrinho,  se > 1 decrementa)<br>
 POST: http://localhost:8000/api/carrinho/finaliza/{ID} (Finaliza e da baixa no estoque do produto, se ficar negativo cancela a operacao)<br><br>
