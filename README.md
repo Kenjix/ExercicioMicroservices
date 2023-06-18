@@ -1,5 +1,5 @@
 # ExercicioMicroservices
-CARRINHO: (php artisan serve --port 8000)<br><br>
+CARRINHO: (php artisan serve --port 8000)<br>
 
 BANCO:<br>
 DB_CONNECTION=mysql<br>
@@ -19,6 +19,7 @@ variaveis: nome, descricao, valor, estoque<br>
 DELETE http://localhost:8001/api/produtos/{ID}<br>
 PRODUTO: (php artisan serve --port 8001)<br><br>
 
+PRODUTO: (php artisan serve --port 8001)<br>
 BANCO:<br>
 DB_CONNECTION=mysql<br>
 DB_HOST=127.0.0.1<br>
