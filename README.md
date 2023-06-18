@@ -11,10 +11,10 @@ DB_DATABASE=carrinho_ms<br>
 DB_USERNAME=root<br>
 DB_PASSWORD=senha<br><br>
 ROTAS:<br>
-POST: http://localhost:8000/api/carrinho/add<br>
+POST: http://localhost:8000/api/carrinho/add (Adiocona um produto no carrinho)<br> 
 variaveis: produto_id, quantidade, carrinho_id (se nulo cria um carrinho)<br>
-DELETE: http://localhost:8000/api/carrinho/remove/{ID} (1 item exclui, > 1 decrementa)<br>
-POST: http://localhost:8000/api/carrinho/finaliza/{ID} (finaliza e baixa o estoque do produto, se ficar negativo cancela a operacao)<br><br>
+DELETE: http://localhost:8000/api/carrinho/remove/{ID} (Remove um produto do carrinho,  se > 1 decrementa)<br>
+POST: http://localhost:8000/api/carrinho/finaliza/{ID} (Finaliza e da baixa no estoque do produto, se ficar negativo cancela a operacao)<br><br>
 PRODUTO: (php artisan serve --port 8001)<br>
 BANCO:<br>
 DB_CONNECTION=mysql<br>
@@ -24,10 +24,10 @@ DB_DATABASE=produtos_ms<br>
 DB_USERNAME=root<br>
 DB_PASSWORD=senha<br><br>
 ROTAS:<br>
-GET http://localhost:8001/api/produtos (retorna todos os produtos)<br>
-GET http://localhost:8001/api/produtos/{ID} (retorna um produto)<br>
-POST http://localhost:8001/api/produtos<br>
+GET http://localhost:8001/api/produtos (Retorna todos os produtos)<br>
+GET http://localhost:8001/api/produtos/{ID} (Retorna um produto)<br>
+POST http://localhost:8001/api/produtos (Adiciona um produto)<br>
 variaveis: nome, descricao, valor, estoque<br>
-PUT http://localhost:8001/api/produtos/{ID}<br>
+PUT http://localhost:8001/api/produtos/{ID} (Altera um produto)<br>
 variaveis: nome, descricao, valor, estoque<br>
-DELETE http://localhost:8001/api/produtos/{ID}<br>
+DELETE http://localhost:8001/api/produtos/{ID} (Remove um produto)<br>
