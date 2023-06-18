@@ -25,7 +25,7 @@ DB_HOST=127.0.0.1<br>
 DB_PORT=3306<br>
 DB_DATABASE=produtos_ms<br>
 DB_USERNAME=root<br>
-DB_PASSWORD=senha<br>
+DB_PASSWORD=senha<br><br>
 ROTAS:<br>
 POST: http://localhost:8000/api/carrinho/add<br>
 variaveis: produto_id, quantidade, carrinho_id (se nulo cria um carrinho)<br>
