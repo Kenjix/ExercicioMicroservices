@@ -9,7 +9,7 @@ DB_HOST=127.0.0.1<br>
 DB_PORT=3306<br>
 DB_DATABASE=carrinho_ms<br>
 DB_USERNAME=root<br>
-DB_PASSWORD=senha<br>
+DB_PASSWORD=senha<br><br>
 ROTAS:<br>
 GET http://localhost:8001/api/produtos (retorna todos os produtos)<br>
 GET http://localhost:8001/api/produtos/{ID} (retorna um produto)<br>
@@ -17,7 +17,7 @@ POST http://localhost:8001/api/produtos<br>
 variaveis: nome, descricao, valor, estoque<br>
 PUT http://localhost:8001/api/produtos/{ID}<br>
 variaveis: nome, descricao, valor, estoque<br>
-DELETE http://localhost:8001/api/produtos/{ID}<br>
+DELETE http://localhost:8001/api/produtos/{ID}<br><br>
 PRODUTO: (php artisan serve --port 8001)<br><br>
 BANCO:<br>
 DB_CONNECTION=mysql<br>
@@ -45,7 +45,7 @@ POST http://localhost:8001/api/produtos<br>
 variaveis: nome, descricao, valor, estoque<br>
 PUT http://localhost:8001/api/produtos/{ID}<br>
 variaveis: nome, descricao, valor, estoque<br>
-DELETE http://localhost:8001/api/produtos/{ID}<br>
+DELETE http://localhost:8001/api/produtos/{ID}<br><br>
 PRODUTO: (php artisan serve --port 8001)<br><br>
 BANCO:<br>
 DB_CONNECTION=mysql<br>
