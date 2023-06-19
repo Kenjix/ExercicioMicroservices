@@ -17,14 +17,14 @@ class ProdutoController extends Controller
 
         $produtos = $response->json();
 
-        return view('listar-produtos', compact('produtos'));
+        return view('produto.listar-produtos', compact('produtos'));
     }
 
     public function show($id)
     {
         $response = Http::get("http://localhost:8001/api/produtos/{$id}");
         $produto = $response->json();
-        return view('detalhes-produtos', ['produto' => $produto]);
+        return view('produto.detalhes-produtos', ['produto' => $produto]);
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class ProdutoController extends Controller
             'valor' => $request->input('valor'),
             'estoque' => $request->input('estoque'),
         ]);
-        return redirect('/produtos');
+        return redirect('produto.listar-produtos');
     }
 
     public function update(Request $request, $id)

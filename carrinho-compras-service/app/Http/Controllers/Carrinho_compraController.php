@@ -25,7 +25,7 @@ class Carrinho_compraController extends Controller
             }
         }
 
-        return view('carrinho-index', compact('produtos'));
+        return view('carrinho.carrinho-index', compact('produtos'));
     }
 
     public function addItem(Request $request)
