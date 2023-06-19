@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Detalhes do Produto</title>
 </head>
 <body>
@@ -38,14 +39,13 @@
                 <a class="nav-link disabled">Disabled</a>
               </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-flex">
+              <a href="{{route('carrinho.index')}}" class="btn btn-outline-success" type="submit"><i class="bi bi-cart-fill"></i></a>
+            </div>
           </div>
         </div>
       </nav>
-    <div class="container">
+      <div class="container">
         <div class="card mb-3">
             <div class="row g-0">
               <div class="col-md-6 h-100">
@@ -53,37 +53,52 @@
               </div>
               <div class="col-md-6 h-100">
                 <div class="card-body">
-                  <h5 class="card-title">{{ $produto['nome'] }}</h5>
+                  <div class="d-flex justify-content-end">
+                    <!-- Ícone de Favoritos -->
+                    <div class="me-3">
+                      <i class="bi bi-heart"></i>
+                    </div>
+
+                    <!-- Compartilhar -->
+                    <div>
+                      <i class="bi bi-share-fill"></i>
+                    </div>
+                  </div>
+                   <!-- Avaliações -->
+                   <div class="small">
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> 4.5 (123 avaliações)
+                  </div>
+                  <h1 class="card-title">{{ $produto['nome'] }}</h1>
                   <p class="card-text">{{ $produto['descricao'] }}</p>
-                  <p class="card-text">Valor: R$ {{ $produto['valor'] }}</p>
+                  <p class="card-text"><h4>Valor: R$ {{ $produto['valor'] }}</h4></p>
                   <p class="card-text">Estoque: {{ $produto['estoque'] }}</p>
-
-                  <!-- Avaliações -->
-                  <div class="mb-3">
-                    Avaliações: 4.5 (123 avaliações)
-                  </div>
-
-                  <!-- Ícone de Favoritos -->
-                  <div class="mb-3">
-                    <i class="bi bi-heart"></i> Adicionar aos favoritos
-                  </div>
-
-                  <!-- Compartilhar -->
-                  <div class="mb-3">
-                    Compartilhar:
-                    <i class="bi bi-facebook"></i>
-                    <i class="bi bi-twitter"></i>
-                    <i class="bi bi-instagram"></i>
-                  </div>
 
                   <!-- Opções de Parcelamento -->
                   <div class="mb-3">
-                    Opções de Parcelamento:
-                    <ul>
-                      <li>2x de R$ 50,00 sem juros</li>
-                      <li>3x de R$ 33,33 sem juros</li>
-                      <li>4x de R$ 25,00 sem juros</li>
-                    </ul>
+                    <label for="parcelamento">Opções de Parcelamento:</label>
+                    <select class="form-select form-select-sm narrow-select mt-3" id="parcelamento" style="width: 300px;">
+                      <option selected disabled>Selecione uma opção de parcelamento</option>
+                      <option value="2">2x de R$ 50,00 sem juros</option>
+                      <option value="3">3x de R$ 33,33 sem juros</option>
+                      <option value="4">4x de R$ 25,00 sem juros</option>
+                    </select>
+                  </div>
+
+                  <!-- Botões Comprar e Adicionar ao Carrinho -->
+                  <div class="mb-3">
+                    <form action="{{ route('carrinho.addItem') }}" method="POST">
+                      @csrf
+                      <input type="hidden" name="carrinho_id" value="{{ session('carrinho_id', null) }}">
+                      <input type="hidden" name="produto_id" value="{{ $produto['id'] }}">
+                      <input type="hidden" name="quantidade" value="1">
+                      <button class="btn btn-primary me-2">
+                        <i class="bi bi-cart"></i> Comprar
+                      </button>
+                      <button class="btn btn-secondary" type="submit">
+                        <i class="bi bi-plus"></i> Adicionar ao Carrinho
+                      </button>
+                    </form>
+                                     
                   </div>
                 </div>
               </div>

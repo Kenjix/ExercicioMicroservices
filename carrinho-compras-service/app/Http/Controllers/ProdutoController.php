@@ -19,4 +19,39 @@ class ProdutoController extends Controller
 
         return view('listar-produtos', compact('produtos'));
     }
+
+    public function show($id)
+    {
+        $response = Http::get("http://localhost:8001/api/produtos/{$id}");
+        $produto = $response->json();
+        return view('detalhes-produtos', ['produto' => $produto]);
+    }
+
+    public function store(Request $request)
+    {
+        $response = Http::post('http://localhost:8001/api/produtos/cadastrar', [
+            'nome' => $request->input('nome'),
+            'descricao' => $request->input('descricao'),
+            'valor' => $request->input('valor'),
+            'estoque' => $request->input('estoque'),
+        ]);
+        return redirect('/produtos');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $response = Http::put("http://localhost:8001/api/produtos/{$id}", [
+            'nome' => $request->input('nome'),
+            'descricao' => $request->input('descricao'),
+            'valor' => $request->input('valor'),
+            'estoque' => $request->input('estoque'),
+        ]);
+        return $response->json();
+    }
+
+    public function destroy($id)
+    {
+        $response = Http::delete("http://localhost:8001/api/produtos/{$id}");
+        return $response->json();
+    }
 }

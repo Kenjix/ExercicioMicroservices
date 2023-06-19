@@ -8,6 +8,26 @@ use Illuminate\Http\Request;
 
 class Carrinho_compraController extends Controller
 {
+    public function index()
+    {
+        $itens = Carrinho_compra::all();
+
+        $produtos = [];
+
+        foreach ($itens as $item) {
+            // Faz uma requisição para a API de produtos para obter os detalhes do produto
+            $response = Http::get('http://localhost:8001/api/produtos/' . $item->produto_id);
+
+            if ($response->successful()) {
+                $produto = $response->json();
+                $produto['quantidade'] = $item->quantidade;
+                $produtos[] = $produto;
+            }
+        }
+
+        return view('carrinho-index', compact('produtos'));
+    }
+
     public function addItem(Request $request)
     {
         $carrinhoId = $request->input('carrinho_id');
@@ -31,7 +51,7 @@ class Carrinho_compraController extends Controller
             $carrinhoCompra->carrinho_id = $id;
             $carrinhoCompra->quantidade = $quantidade;
             $carrinhoCompra->save();
-            return response()->json(['message' => 'Produto adicionado ao carrinho'], 201);
+            return back();
         } else {
             $carrinho = Carrinho_compra::where('carrinho_id', $carrinhoId)->first();
 
@@ -44,7 +64,7 @@ class Carrinho_compraController extends Controller
                 'produto_id' => $produto['id'],
                 'quantidade' => $quantidade,
             ]);
-            return response()->json(['message' => 'Produto adicionado ao carrinho'], 201);
+            return back();
         }        
     }
 
