@@ -25,30 +25,42 @@ class ProdutoController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $produto = Produto::create($request->all());
+    {        
+        $request->validate([
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048' //define as regras de validacao da imagem
+        ]);
+        $imagemBinario = file_get_contents($request->file('imagem')->getRealPath());
+        
+        $produto = Produto::create([
+            'nome' => $request->nome,
+            'codigo' => $request->codigo,
+            'imagem' => $imagemBinario,
+            'descricao' => $request->descricao,
+            'valor' => $request->valor,
+            'estoque' => $request->estoque,            
+        ]);
         return response()->json($produto, 201);
     }
 
     public function update(Request $request, $id)
     {
         $produto = Produto::find($id);
-    
+
         if (!$produto) {
             return response()->json(['message' => 'Produto não encontrado'], 404);
         }
-    
+
         //obtem o estoque atualizado do request
         $estoqueAtualizado = $request->input('estoque');
-    
+
         //verifica se o estoque atualizado resultará em um valor negativo
         if ($estoqueAtualizado < 0) {
             return response()->json(['message' => 'Estoque não pode ser negativo'], 400);
         }
-    
+
         //atualiza o estoque apenas se não for negativo
         $produto->update($request->all());
-    
+
         return response()->json($produto);
     }
 
