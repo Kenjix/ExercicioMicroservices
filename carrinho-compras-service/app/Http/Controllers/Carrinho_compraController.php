@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Carrinho_compra;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class Carrinho_compraController extends Controller
 {
@@ -51,6 +52,7 @@ class Carrinho_compraController extends Controller
             $carrinhoCompra->carrinho_id = $id;
             $carrinhoCompra->quantidade = $quantidade;
             $carrinhoCompra->save();
+
             return back();
         } else {
             $carrinho = Carrinho_compra::where('carrinho_id', $carrinhoId)->first();
@@ -64,38 +66,47 @@ class Carrinho_compraController extends Controller
                 'produto_id' => $produto['id'],
                 'quantidade' => $quantidade,
             ]);
+
             return back();
         }        
     }
 
     public function removeItem($carrinho_id, $produto_id)
-    {    
-        //faz uma requisicao para a aplicacao de produtos para buscar os dados
-        $response = Http::get('http://localhost:8001/api/produtos/' . $produto_id);
-        if ($response->failed()) {
-            return response()->json(['message' => 'Produto não encontrado'], $response->status());
-        }
-    
-        $produto = $response->json();
-
-        $carrinho = Carrinho_compra::where('carrinho_id', $carrinho_id)
-            ->where('produto_id', $produto['id'])
-            ->first();
-        if (!$carrinho) {
-            return response()->json(['message' => 'Item não encontrado'], 404);
-        }
-        
-        $quantidade = $carrinho->quantidade;
-        
-        if ($quantidade > 1) {
-            $carrinho->quantidade -= 1;
-            $carrinho->save();
-            return response()->json(['message' => 'Item removido do carrinho'], 204);
-        } else {
-            $carrinho->delete();
-            return response()->json(['message' => 'Item removido do carrinho'], 204);
-        }    
+{    
+    // Faz uma requisição para a aplicação de produtos para buscar os dados
+    $response = Http::get('http://localhost:8001/api/produtos/' . $produto_id);
+    if ($response->failed()) {
+        return response()->json(['message' => 'Produto não encontrado'], $response->status());
     }
+
+    $produto = $response->json();
+
+    // Procura o item no carrinho
+    $carrinho = Carrinho_compra::where('carrinho_id', $carrinho_id)
+        ->where('produto_id', $produto['id'])
+        ->first();
+
+    if (!$carrinho) {
+        return response()->json(['message' => 'Item não encontrado'], 404);
+    }
+
+    $quantidade = $carrinho->quantidade;
+
+    if ($quantidade > 1) {
+        $carrinho->quantidade -= 1;
+        $carrinho->save();
+    } else {
+        $carrinho->delete();
+    }
+
+    // Remova o item da tabela carrinho_compras
+    Carrinho_compra::where('carrinho_id', $carrinho_id)
+        ->where('produto_id', $produto['id'])
+        ->delete();
+
+    return response()->json(['message' => 'Item removido do carrinho'], 204);
+}
+
 
     public function finalizar($id)
     {      

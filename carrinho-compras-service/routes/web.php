@@ -15,8 +15,8 @@ use App\Http\Controllers\ProdutoController;
 */
 
 Route::get('/', [ProdutoController::class, 'index'])->name('produtos.index');
-Route::get('/produtos/{id}', [ProdutoController::class, 'show'])->name('detalhes-produto');
-Route::get('/produtos/cadastrar', function () {return view('create');})->name('produtos.create');
+Route::get('/produtos/detalhes/{id}', [ProdutoController::class, 'show'])->name('produtos.show');
+Route::get('/produtos/cadastrar', [ProdutoController::class, 'create'])->name('produtos.create');
 Route::post('/produtos/cadastrar', [ProdutoController::class, 'store'])->name('produtos.store');
 Route::put('/produtos/{id}', [ProdutoController::class, 'update']);
 Route::delete('/produtos/{id}', [ProdutoController::class, 'destroy']);

@@ -21,10 +21,7 @@
                                 <span class="mx-2">{{ $produto['quantidade'] }}</span>
                                 <button class="btn btn-sm btn-secondary">+</button>
                             </div>
-                            
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                        
-                            
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>
                 </div>

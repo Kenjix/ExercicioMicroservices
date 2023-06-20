@@ -51,11 +51,8 @@
                             <input type="hidden" name="carrinho_id" value="{{ session('carrinho_id', null) }}">
                             <input type="hidden" name="produto_id" value="{{ $produto['id'] }}">
                             <input type="hidden" name="quantidade" value="1">
-                            <button class="btn btn-primary me-2">
+                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <i class="bi bi-cart"></i> Comprar
-                            </button>
-                            <button class="btn btn-secondary" type="submit">
-                                <i class="bi bi-plus"></i> Adicionar ao Carrinho
                             </button>
                         </form>
 
@@ -65,6 +62,23 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Deseja ir ao carrinho?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal" aria-label="Close">Continuar comprando</button>
+            <a href="{{ route('carrinho.index') }}" type="button" class="btn btn-primary">Ir ao carrinho</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Card para a seção de Comentários -->
     <div class="card mb-3">
         <div class="card-body">

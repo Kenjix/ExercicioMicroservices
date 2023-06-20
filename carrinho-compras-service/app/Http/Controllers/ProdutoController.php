@@ -20,11 +20,15 @@ class ProdutoController extends Controller
         return view('produto.listar-produtos', compact('produtos'));
     }
 
+    public function create(){
+        return view('produto.cadastrar-produtos');
+    }
+
     public function show($id)
     {
         $response = Http::get("http://localhost:8001/api/produtos/{$id}");
         $produto = $response->json();
-        return view('produto.detalhes-produtos', ['produto' => $produto]);
+        return view('produto.detalhes-produtos', compact('produto'));
     }
 
     public function store(Request $request)
@@ -35,8 +39,10 @@ class ProdutoController extends Controller
             'valor' => $request->input('valor'),
             'estoque' => $request->input('estoque'),
         ]);
-        return redirect('produto.listar-produtos');
+        
+        return redirect()->route('produtos.create');
     }
+
 
     public function update(Request $request, $id)
     {
@@ -54,4 +60,5 @@ class ProdutoController extends Controller
         $response = Http::delete("http://localhost:8001/api/produtos/{$id}");
         return $response->json();
     }
+
 }
