@@ -22,5 +22,6 @@
     @include("partials.menu")
 
     @yield("main")
+    
 </body>
 </html>

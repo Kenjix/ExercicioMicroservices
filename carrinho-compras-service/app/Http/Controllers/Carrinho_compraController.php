@@ -53,7 +53,8 @@ class Carrinho_compraController extends Controller
             $carrinhoCompra->quantidade = $quantidade;
             $carrinhoCompra->save();
 
-            return back();
+            //retorna uma resposta vazia, pois deixa o usuario ser direcionado a rota atraves das opções do modal (Continuar comprando/Ir ao carrinho)
+            return response()->noContent();
         } else {
             $carrinho = Carrinho_compra::where('carrinho_id', $carrinhoId)->first();
 
@@ -67,7 +68,8 @@ class Carrinho_compraController extends Controller
                 'quantidade' => $quantidade,
             ]);
 
-            return back();
+            //retorna uma resposta vazia, pois deixa o usuario ser direcionado a rota atraves das opções do modal (Continuar comprando/Ir ao carrinho)
+            return response()->noContent();
         }        
     }
 
