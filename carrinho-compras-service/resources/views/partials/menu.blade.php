@@ -23,7 +23,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('produtos.create') }}">Cadastrar um produto</a></li>
-                        <li><a class="dropdown-item" href="{{ route('produtos.') }}">Listar e Editar Produtos</a></li>
+                        <li><a class="dropdown-item" href="#">Listar e Editar Produtos</a></li>
                     </ul>
                 </li>
             </ul>
