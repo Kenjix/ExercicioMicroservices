@@ -35,11 +35,12 @@ class ProdutoController extends Controller
     {
         $response = Http::post('http://localhost:8001/api/produtos/cadastrar', [
             'nome' => $request->input('nome'),
+            'codigo' => $request->input('codigo'),
+            'imagem' => $request->input('imagem'),
             'descricao' => $request->input('descricao'),
             'valor' => $request->input('valor'),
             'estoque' => $request->input('estoque'),
-        ]);
-        
+        ]);        
         return redirect()->route('produtos.create');
     }
 

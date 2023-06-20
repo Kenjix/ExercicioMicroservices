@@ -9,6 +9,9 @@ class Produto extends Model
 {
     use HasFactory;
     
+    protected $casts = [
+        'imagem' => 'binary',
+    ];
     protected $table = 'produtos';
-    protected $fillable = ['nome', 'descricao', 'valor', 'estoque'];
+    protected $fillable = ['nome', 'codigo', 'imagem', 'descricao', 'valor', 'estoque'];
 }

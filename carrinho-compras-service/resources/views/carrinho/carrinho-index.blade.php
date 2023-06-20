@@ -17,11 +17,11 @@
                         <p class="card-text"><small class="text-muted">Valor: R$ {{ $produto['valor'] }}</small></p>
                         <div class="d-flex justify-content-between">
                             <div class="quantity">
-                                <button class="btn btn-sm btn-secondary">-</button>
+                                <button id="addItem" class="btn btn-sm btn-secondary">-</button>
                                 <span class="mx-2">{{ $produto['quantidade'] }}</span>
-                                <button class="btn btn-sm btn-secondary">+</button>
+                                <button id="remItem" class="btn btn-sm btn-secondary">+</button>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                            <button type="submit" id="excluir" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>
                 </div>
