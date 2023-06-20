@@ -21,7 +21,7 @@ class ProdutoController extends Controller
     }
 
     public function create(){
-        return view('produto.cadastrar-produtos');
+        return view('admin.cadastrar-produtos');
     }
 
     public function show($id)
