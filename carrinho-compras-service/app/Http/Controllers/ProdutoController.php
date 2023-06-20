@@ -43,6 +43,9 @@ class ProdutoController extends Controller
         return redirect()->route('produtos.create');
     }
 
+    public function edit(){
+        return view("admin.editar-produtos");
+    }
 
     public function update(Request $request, $id)
     {
