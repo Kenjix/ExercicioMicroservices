@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/carrinho', [Carrinho_compraController::class, 'index'])->name('carrinho.index');
 Route::post('/carrinho/add', [Carrinho_compraController::class, 'addItem'])->name('carrinho.addItem');
-Route::delete('/carrinho/remove/{carrinho_id}/{produto_id}', [Carrinho_compraController::class, 'removeItem'])->name('carrinho.removeItem');
+Route::delete('/carrinho/remove/{carrinho_id}/{produto_id}', [Carrinho_compraController::class, 'removeItem'])->name('carrinho.remove');
 Route::post('/carrinho/finaliza/{id}', [Carrinho_compraController::class, 'finalizar']);

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('carrinho_compras', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('carrinho_id')->nullable();
-            $table->unsignedBigInteger('produto_id')->nullable();           
+            $table->unsignedBigInteger('produto_id')->nullable();         
             $table->integer('quantidade')->nullable();
             $table->boolean('finalizado')->default(false);
             $table->timestamps();

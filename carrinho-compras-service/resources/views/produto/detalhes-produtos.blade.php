@@ -1,13 +1,15 @@
 @extends('template.layout')
 @section('main')
-    <div class="container">
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-6 h-100 d-flex justify-content-center">
-                    <img src="{{ $produto['imagem_link'] }}" class="rounded-start" alt="...">
+<div class="container">
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-6">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
+                    <img src="{{ $produto['imagem_link'] }}" class="img-fluid" alt="...">
                 </div>
-                <div class="col-md-6 h-100">
-                    <div class="card-body">
+            </div>
+            <div class="col-md-6">
+                <div class="card-body d-flex flex-column justify-content-between h-100">
                         <div class="d-flex justify-content-end">
                             <!-- Ícone de Favoritos -->
                             <div class="me-3">
@@ -27,7 +29,7 @@
                         <h1 class="card-title">{{ $produto['nome'] }}</h1>
                         <p class="card-text">{{ $produto['descricao'] }}</p>
                         <p class="card-text">
-                            <h4>Valor: R$ {{ $produto['valor'] }}</h4>
+                        <h4>Valor: R$ {{ $produto['valor'] }}</h4>
                         </p>
                         <p class="card-text text-secondary small">Disponível: {{ $produto['estoque'] }} unidades</p>
                         <!-- Opções de Parcelamento -->

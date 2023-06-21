@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome')->nullable(false);
             $table->string('codigo')->nullable(false);
-            $table->string('imagem')->nullable();;
+            $table->string('imagem')->nullable();
             $table->text('descricao')->nullable();
             $table->decimal('valor', 8, 2);
             $table->integer('estoque')->default(0);

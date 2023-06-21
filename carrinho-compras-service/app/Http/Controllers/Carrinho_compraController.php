@@ -17,17 +17,19 @@ class Carrinho_compraController extends Controller
 
         foreach ($itens as $item) {
             // Faz uma requisição para a API de produtos para obter os detalhes do produto
-            $response = Http::get('http://localhost:8001/api/produtos/' . $item->produto_id);
+            $response = Http::get('http://localhost:8001/api/produtos/detalhes/' . $item['produto_id']);
 
             if ($response->successful()) {
                 $produto = $response->json();
-                $produto['quantidade'] = $item->quantidade;
+                $produto['quantidade'] = $item['quantidade'];
+                $produto['carrinho_id'] = $item->carrinho_id;
                 $produtos[] = $produto;
             }
         }
-
+        
         return view('carrinho.carrinho-index', compact('produtos'));
     }
+
 
     public function addItem(Request $request)
     {
