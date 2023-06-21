@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Cadastro de Produto</h5>
-        <form action="{{ route('produtos.store') }}" method="POST" id="cadastroForm">
+        <form action="{{ route('produtos.store') }}" method="POST" id="cadastroForm" enctype="multipart/form-data">
           @csrf
           <div class="row">
             <div class="col-md-6">
@@ -21,6 +21,10 @@
               <div class="form-group">
                 <label for="descricao">Descrição</label>
                 <textarea class="form-control" id="descricao" name="descricao" rows="3" placeholder="Digite a descrição do produto"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="nome">Codigo</label>
+                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Digite o codigo do produto">
               </div>
               <div class="form-group">
                 <label for="estoque">Estoque</label>
