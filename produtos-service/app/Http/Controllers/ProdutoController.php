@@ -26,15 +26,10 @@ class ProdutoController extends Controller
 
     public function store(Request $request)
     {        
-        $request->validate([
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048' //define as regras de validacao da imagem
-        ]);
-        $imagemBinario = file_get_contents($request->file('imagem')->getRealPath());
-        
         $produto = Produto::create([
             'nome' => $request->nome,
             'codigo' => $request->codigo,
-            'imagem' => $imagemBinario,
+            'imagem' => $request->imagem,
             'descricao' => $request->descricao,
             'valor' => $request->valor,
             'estoque' => $request->estoque,            
