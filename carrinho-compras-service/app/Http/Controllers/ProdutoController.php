@@ -39,7 +39,7 @@ class ProdutoController extends Controller
 
     public function show($id)
     {
-        $response = Http::get("http://localhost:8001/api/produtos/{$id}");
+        $response = Http::get("http://localhost:8001/api/produtos/detalhes/{$id}");
         $produto = $response->json();
         return view('produto.detalhes-produtos', compact('produto'));
     }
@@ -62,7 +62,7 @@ class ProdutoController extends Controller
             ]);        
         }
         
-        return redirect()->route('produtos.create');
+        return redirect()->back();
     }
     
 

@@ -29,8 +29,7 @@
                         <p class="card-text">
                             <h4>Valor: R$ {{ $produto['valor'] }}</h4>
                         </p>
-                        <p class="card-text">Disponível: {{ $produto['estoque'] }} unidades</p>
-
+                        <p class="card-text text-secondary small">Disponível: {{ $produto['estoque'] }} unidades</p>
                         <!-- Opções de Parcelamento -->
                         <div class="mb-3">
                             <label for="parcelamento">Opções de Parcelamento:</label>
