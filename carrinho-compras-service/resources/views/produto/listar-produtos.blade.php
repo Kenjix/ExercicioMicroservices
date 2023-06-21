@@ -6,7 +6,7 @@
                 <div class="col mb-4">
                     <a href="{{ route('produtos.show', ['id' => $produto['id']]) }}" style="text-decoration: none;">
                         <div class="card card-produtos">
-                            {{-- <img src="{{ $produto->foto }}" class="card-img-top" alt="Foto do produto"> --}}
+                            {{-- <img src="{{ $produto->imagem_link }}" class="card-img-top" alt="Foto do produto"> --}}
                             <div class="card-body">
                                 <h5 class="card-title">{{ $produto['nome'] }}</h5>
                                 <p class="card-text">{{ $produto['descricao'] }}</p>

@@ -4,13 +4,13 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Cadastro de Produto</h5>
-        <form action="{{ route('produtos.store') }}" method="POST" id="cadastroForm" enctype="multipart/form-data">
+        <form action="{{ route('produtos.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="imagem">Foto do Produto</label>
-                <input type="file" class="form-control" id="imagem" name="imagem">
+                <label>Foto do Produto</label>
+                <input type="file" id="imagem" name="imagem" class="form-control">
               </div>
             </div>
             <div class="col-md-6">

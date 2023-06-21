@@ -9,5 +9,12 @@ class Produto extends Model
 {
     use HasFactory;
     protected $table = 'produtos';
-    protected $fillable = ['nome', 'codigo', 'imagem', 'descricao', 'valor', 'estoque'];
+    protected $fillable = ['nome', 'descricao', 'valor', 'estoque', 'codigo', 'imagem'];
+    protected $hidden = ['imagem'];
+
+    protected $appends = ['imagem_link'];
+    public function getImagemLinkAttribute()
+    {
+        return asset($this->imagem);
+    }
 }

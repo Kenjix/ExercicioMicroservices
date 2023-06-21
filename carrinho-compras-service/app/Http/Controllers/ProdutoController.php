@@ -20,7 +20,8 @@ class ProdutoController extends Controller
         return view('produto.listar-produtos', compact('produtos'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.cadastrar-produtos');
     }
 
@@ -33,27 +34,32 @@ class ProdutoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048' //define as regras de validacao da imagem
-        ]);
-        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-            $imageContent = file_get_contents($request->file('imagem')->path());
-            
-            $response = Http::post('http://localhost:8001/api/produtos/cadastrar', [
+        if ($request->hasFile('imagem')) {
+            $imagem = $request->file('imagem');
+            $imagemBase64 = base64_encode(file_get_contents($imagem->getRealPath()));
+            $url = "http://localhost:8001/api/produtos/cadastrar";
+            $response = Http::post($url, [
                 'nome' => $request->input('nome'),
                 'codigo' => $request->input('codigo'),
-                'imagem' => mb_convert_encoding($imageContent, 'UTF-8', 'UTF-8'),
                 'descricao' => $request->input('descricao'),
                 'valor' => $request->input('valor'),
                 'estoque' => $request->input('estoque'),
-            ]);        
-        }
-        
-        return redirect()->route('produtos.create');
-    }
-    
+                'imagem' => $imagemBase64,
+            ]);
 
-    public function edit(){
+            if (!$response) {
+                return response()->json(['message' => 'Erro ao cadastrar'], 500);
+            } else {
+                return redirect()->route('produtos.create');
+            }
+        } else {
+            return response()->json(['message' => 'Parametros invalidos'], 400);
+        }
+    }
+
+
+    public function edit()
+    {
         return view("admin.editar-produtos");
     }
 
@@ -73,5 +79,4 @@ class ProdutoController extends Controller
         $response = Http::delete("http://localhost:8001/api/produtos/{$id}");
         return $response->json();
     }
-
 }
