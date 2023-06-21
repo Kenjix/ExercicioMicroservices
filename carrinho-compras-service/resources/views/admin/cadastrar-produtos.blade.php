@@ -9,8 +9,8 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="foto">Foto do Produto</label>
-                <input type="file" class="form-control" id="foto">
+                <label for="imagem">Foto do Produto</label>
+                <input type="file" class="form-control" id="imagem" name="imagem">
               </div>
             </div>
             <div class="col-md-6">

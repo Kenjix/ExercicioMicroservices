@@ -46,16 +46,25 @@ class ProdutoController extends Controller
 
     public function store(Request $request)
     {
-        $response = Http::post('http://localhost:8001/api/produtos/cadastrar', [
-            'nome' => $request->input('nome'),
-            'codigo' => $request->input('codigo'),
-            'imagem' => $request->input('imagem'),
-            'descricao' => $request->input('descricao'),
-            'valor' => $request->input('valor'),
-            'estoque' => $request->input('estoque'),
-        ]);        
+        $request->validate([
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048' //define as regras de validacao da imagem
+        ]);
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+            $imageContent = file_get_contents($request->file('imagem')->path());
+            
+            $response = Http::post('http://localhost:8001/api/produtos/cadastrar', [
+                'nome' => $request->input('nome'),
+                'codigo' => $request->input('codigo'),
+                'imagem' => mb_convert_encoding($imageContent, 'UTF-8', 'UTF-8'),
+                'descricao' => $request->input('descricao'),
+                'valor' => $request->input('valor'),
+                'estoque' => $request->input('estoque'),
+            ]);        
+        }
+        
         return redirect()->route('produtos.create');
     }
+    
 
     public function edit(){
         return view("admin.editar-produtos");
