@@ -2,6 +2,12 @@
 
 ![Arquiteruas](arquiteturas/arquiteturas.jpg)
 
+Comandos ao clonar:<br>
+Service Produto:<br>
+composer install (instala as dependencias)<br>
+php artisan storage:link (Cria link simbolico do storage para pasta publica)<br><br>
+Service Carrinho:<br>
+composer install (instala as dependencias)<br><br>
 CARRINHO: (php artisan serve --port 8000)<br>
 BANCO:<br>
 DB_CONNECTION=mysql<br>

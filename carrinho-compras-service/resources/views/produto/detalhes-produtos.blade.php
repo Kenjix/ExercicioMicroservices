@@ -3,8 +3,8 @@
     <div class="container">
         <div class="card mb-3">
             <div class="row g-0">
-                <div class="col-md-6 h-100">
-                    <img src="..." class="rounded-start" alt="...">
+                <div class="col-md-6 h-100 d-flex justify-content-center">
+                    <img src="{{ $produto['imagem_link'] }}" class="rounded-start" alt="...">
                 </div>
                 <div class="col-md-6 h-100">
                     <div class="card-body">
