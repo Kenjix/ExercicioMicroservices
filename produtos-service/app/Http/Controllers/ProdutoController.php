@@ -74,12 +74,39 @@ class ProdutoController extends Controller
 
         //verifica se o estoque atualizado resultará em um valor negativo
         if ($estoqueAtualizado < 0) {
-            return response()->json(['message' => 'Estoque não pode ser negativo'], 400);
+            return response()->json(['message' => 'Estoque negativo'], 400);
         }
 
-        //atualiza o estoque apenas se não for negativo
-        $produto->update($request->all());
+        if ($produto->imagem) {
+            $filePath = public_path($produto->imagem);
+            unlink($filePath);
+        }
 
+        //recebe a imagem e substitui da pasta publica
+        $base64Image = $request->imagem;
+        if ($base64Image) {
+            $decodedImage = base64_decode($base64Image);
+            $fileName = uniqid() . '.png';
+            Storage::disk('public')->put($fileName, $decodedImage);
+            $url = Storage::url($fileName);
+        }
+        
+        //atualiza o estoque apenas se não for negativo
+        $produto->update([
+            'nome' => $request->nome,
+            'codigo' => $request->codigo,
+            'imagem' => $base64Image ? $url : null,
+            'descricao' => $request->descricao,
+            'valor' => $request->valor,
+            'estoque' => $request->estoque,
+        ]);
+
+        if ($produto) {
+            Storage::disk('public')->put($fileName, $decodedImage);
+            return response()->json($produto, 201);
+        } else {
+            return response()->json(['message' => 'Erro ao cadastrar'], 500);
+        }
         return response()->json($produto);
     }
 

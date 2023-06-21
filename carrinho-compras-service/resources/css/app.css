@@ -1,0 +1,12 @@
+
+.carrinho-img {
+    width: 150px;
+}
+
+.card-produtos {
+    height: 400px;
+}
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}

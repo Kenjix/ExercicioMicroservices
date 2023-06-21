@@ -6,9 +6,9 @@
         @foreach ($produtos as $produto)
             <div class="card card-item mt-3">
                 <div class="row g-0">
-                    @if (isset($produto['imagem']))
-                        <div class="col-md-4">
-                            <img src="{{ $produto['imagem'] }}" class="img-fluid rounded-start" alt="Imagem do Produto">
+                    @if (isset($produto['imagem_link']))
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <img src="{{ $produto['imagem_link']}}" style="width: 200px" class="img-fluid rounded-start carrinho-img" alt="Imagem do Produto">
                         </div>
                     @endif
                     <div class="col-md-8">

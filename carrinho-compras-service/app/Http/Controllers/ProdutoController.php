@@ -33,7 +33,8 @@ class ProdutoController extends Controller
         return view('admin.listar-editar-produtos', compact('produtos'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.cadastrar-produtos');
     }
 
@@ -67,7 +68,7 @@ class ProdutoController extends Controller
         } else {
             return response()->json(['message' => 'Parametros invalidos'], 400);
         }
-        
+
         return redirect()->route('produtos.create');
     }
 
@@ -82,13 +83,28 @@ class ProdutoController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Http::put("http://localhost:8001/api/produtos/{$id}", [
+        if ($request->hasFile('imagem')) {
+            $imagem = $request->file('imagem');
+            $imagemBase64 = base64_encode(file_get_contents($imagem->getRealPath()));
+        } else {
+            $imagemBase64 = null;
+        }
+
+        $url = "http://localhost:8001/api/produtos/{$id}";
+        $response = Http::put($url, [
             'nome' => $request->input('nome'),
+            'codigo' => $request->input('codigo'),
             'descricao' => $request->input('descricao'),
             'valor' => $request->input('valor'),
             'estoque' => $request->input('estoque'),
+            'imagem' => $imagemBase64,
         ]);
-        return redirect()->back();
+
+        if (!$response) {
+            return response()->json(['message' => 'Erro ao atualizar'], 500);
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function destroy($id)
