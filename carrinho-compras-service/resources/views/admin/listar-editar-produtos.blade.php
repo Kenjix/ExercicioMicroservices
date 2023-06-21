@@ -11,8 +11,8 @@
             <p class="card-text">{{ $produto['descricao'] }}</p>
             <p class="card-text">Valor: R$ {{ $produto['valor'] }}</p>
             <p class="card-text">Estoque: {{ $produto['estoque'] }}</p>
-            <div class="d-flex justify-content-between">
-              <a href="{{ route('produtos.upadate', ['id' => $produto['id']]) }}" class="btn btn-primary">
+            <div class="d-flex justify-content-">
+              <a href="{{ route('produtos.update', ['id' => $produto['id']]) }}" class="btn btn-primary">
                 <i class="fas fa-edit"></i> Editar
               </a>
               <form action="{{ route('produtos.destroy', ['id' => $produto['id']]) }}" method="POST" style="display: inline-block;">

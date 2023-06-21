@@ -20,8 +20,25 @@ class ProdutoController extends Controller
         return view('produto.listar-produtos', compact('produtos'));
     }
 
+<<<<<<< HEAD
     public function create()
     {
+=======
+    public function index_admin()
+    {
+        $response = Http::get('http://localhost:8001/api/produtos');
+
+        if ($response->failed()) {
+            // Lidar com o erro, exibir uma mensagem adequada ou retornar uma resposta de erro
+        }
+
+        $produtos = $response->json();
+
+        return view('admin.listar-editar-produtos', compact('produtos'));
+    }
+
+    public function create(){
+>>>>>>> 921dc34a0bcdbaeb65c62b546277f2c0150253f8
         return view('admin.cadastrar-produtos');
     }
 
