@@ -15,7 +15,7 @@ use App\Http\Controllers\ProdutoController;
 */
 
 Route::get('/', [ProdutoController::class, 'index'])->name('produtos.index');
-Route::get('/admin', [ProdutoController::class, 'index_admin'])->name('produtos.admim.index');
+Route::get('/admin', [ProdutoController::class, 'index_admin'])->name('produtos.admin.index');
 Route::get('/produtos/detalhes/{id}', [ProdutoController::class, 'show'])->name('produtos.show');
 Route::get('/produtos/cadastrar', [ProdutoController::class, 'create'])->name('produtos.create');
 Route::post('/produtos/cadastrar', [ProdutoController::class, 'store'])->name('produtos.store');

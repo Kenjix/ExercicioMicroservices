@@ -10,9 +10,11 @@
                                 <img src="{{ $produto['imagem_link'] }}" class="card-img-top img-fluid object-fit-contain" alt="Foto do produto">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{ $produto['nome'] }}</h5>
-                                <p class="card-text">{{ $produto['descricao'] }}</p>
-                                <p class="card-text">Valor: R$ {{ $produto['valor'] }}</p>
+                                <div class="d-flex d-inline">
+                                    <h5 class="card-title">{{ $produto['nome'] }}</h5>
+                                    <p class="card-text">R$ {{ $produto['valor'] }}</p>
+                                </div>
+                                <p class="card-text small">{{ $produto['descricao'] }}</p>
                                 <p class="card-text">Estoque: {{ $produto['estoque'] }}</p>
                             </div>
                         </div>
