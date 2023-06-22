@@ -11,7 +11,7 @@ class Carrinho_compraController extends Controller
 {
     public function index()
     {
-        $itens = Carrinho_compra::all();
+        $itens = Carrinho_compra::where('finalizado', '0')->get();
 
         $produtos = [];
 
@@ -23,6 +23,7 @@ class Carrinho_compraController extends Controller
                 $produto = $response->json();
                 $produto['quantidade'] = $item['quantidade'];
                 $produto['carrinho_id'] = $item->carrinho_id;
+                $produto['produto_id'] = $item->produto_id;
                 $produtos[] = $produto;
             }
         }
@@ -77,17 +78,11 @@ class Carrinho_compraController extends Controller
 
     public function removeItem($carrinho_id, $produto_id)
     {    
-        // Faz uma requisição para a aplicação de produtos para buscar os dados
-        $response = Http::get('http://localhost:8001/api/produtos/' . $produto_id);
-        if ($response->failed()) {
-            return response()->json(['message' => 'Produto não encontrado'], $response->status());
-        }
 
-        $produto = $response->json();
 
         // Procura o item no carrinho
         $carrinho = Carrinho_compra::where('carrinho_id', $carrinho_id)
-            ->where('produto_id', $produto['id'])
+            ->where('produto_id', $produto_id)
             ->first();
 
         if (!$carrinho) {
@@ -105,10 +100,10 @@ class Carrinho_compraController extends Controller
 
         // Remova o item da tabela carrinho_compras
         Carrinho_compra::where('carrinho_id', $carrinho_id)
-            ->where('produto_id', $produto['id'])
+            ->where('produto_id', $produto_id)
             ->delete();
 
-        return response()->json(['message' => 'Item removido do carrinho'], 204);
+            return redirect()->back();
     }
 
 
@@ -138,6 +133,6 @@ class Carrinho_compraController extends Controller
         $carrinho->finalizado = true;
         $carrinho->save();
     
-        return response()->json(['message' => 'Finalizado com sucesso'], 200);
+        return redirect()->back();
     }
 }
