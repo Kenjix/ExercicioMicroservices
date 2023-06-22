@@ -10,3 +10,13 @@
     height: 200px;
     object-fit: cover;
 }
+.card-produtos {
+    height: 300px; /* Ajuste a altura conforme necessário */
+  }
+  
+  .card-title,
+  .card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
