@@ -11,7 +11,7 @@ class Carrinho_compraController extends Controller
 {
     public function index()
     {
-        $itens = Carrinho_compra::all();
+        $itens = Carrinho_compra::where('finalizado', '0')->get();
 
         $produtos = [];
 
@@ -133,6 +133,6 @@ class Carrinho_compraController extends Controller
         $carrinho->finalizado = true;
         $carrinho->save();
     
-        return response()->json(['message' => 'Finalizado com sucesso'], 200);
+        return redirect()->back();
     }
 }

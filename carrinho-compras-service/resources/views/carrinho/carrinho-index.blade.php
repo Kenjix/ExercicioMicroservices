@@ -2,7 +2,9 @@
 @section("main")
 <div class="container">
     <h1 class="mt-4">Carrinho de Compras</h1>
-
+    @php
+    $total = 0;
+    @endphp
     @foreach ($produtos as $produto)
     <div class="card card-item mt-3">
         <div class="row g-0">
@@ -17,11 +19,14 @@
                     <p class="card-text">{{ $produto['descricao'] }}</p>
                     <p class="card-text"><small class="text-muted">Estoque: {{ $produto['estoque'] }}</small></p>
                     <p class="card-text"><small class="text-muted">Valor: R$ {{ $produto['valor'] }}</small></p>
+                    @php
+                    $total += $produto['valor'] * $produto['quantidade'];
+                    @endphp
                     <div class="d-flex justify-content-between">
                         <div class="quantity">
-                            <button id="addItem" class="btn btn-sm btn-secondary">-</button>
-                            <span class="mx-2">{{ $produto['quantidade'] }}</span>
-                            <button id="remItem" class="btn btn-sm btn-secondary">+</button>
+                            <button id="remItem" class="btn btn-sm btn-secondary" onclick="updateQuantity({{ $produto['id'] }}, -1)">-</button>
+                            <span id="quantity{{ $produto['id'] }}" class="mx-2">{{ $produto['quantidade'] }}</span>
+                            <button id="addItem" class="btn btn-sm btn-secondary" onclick="updateQuantity({{ $produto['id'] }}, 1)">+</button>
                         </div>
                         <form action="{{ route('carrinho.remove', ['carrinho_id' => $produto['carrinho_id'], 'produto_id' => $produto['produto_carrinho_id']]) }}" method="POST">
                             @csrf
@@ -29,7 +34,6 @@
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Remover produto?')">
                                 <i class="bi bi-trash3"></i>
                             </button>
-
                         </form>
                     </div>
                 </div>
@@ -39,9 +43,37 @@
     @endforeach
 
     <div class="text-end">
-        <button class="btn btn-success my-3">Finalizar Compra</button>
+        <p class="h5 mt-2" id="totalValue">Total: R$ {{ $total }}</p>
+        <form action="{{ route('carrinho.finalizar', $produto['carrinho_id']) }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-success my-3" onclick="return confirm('Finalizar carrinho?')">
+                Finalizar Compra
+            </button>
+        </form>
     </div>
 </div>
 
+<script>
+    function updateQuantity(productId, amount) {
+        var quantityElement = document.getElementById('quantity' + productId);
+        var currentQuantity = parseInt(quantityElement.innerHTML);
+        var newQuantity = currentQuantity + amount;
+        if (newQuantity >= 0) {
+            quantityElement.innerHTML = newQuantity;
+            updateTotal();
+        }
+    }
 
+    function updateTotal() {
+        var total = 0;
+        var quantities = document.querySelectorAll('[id^="quantity"]');
+        var prices = document.querySelectorAll('[data-price]');
+        for (var i = 0; i < quantities.length; i++) {
+            var quantity = parseInt(quantities[i].innerHTML);
+            var price = parseFloat(prices[i].getAttribute('data-price'));
+            total += quantity * price;
+        }
+        document.getElementById('totalValue').innerHTML = 'Total: R$ ' + total.toFixed(2);
+    }
+</script>
 @endsection
