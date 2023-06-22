@@ -23,7 +23,7 @@ class Carrinho_compraController extends Controller
                 $produto = $response->json();
                 $produto['quantidade'] = $item['quantidade'];
                 $produto['carrinho_id'] = $item->carrinho_id;
-                $produto['produto_carrinho_id'] = $item->produto_id;
+                $produto['produto_id'] = $item->produto_id;
                 $produtos[] = $produto;
             }
         }

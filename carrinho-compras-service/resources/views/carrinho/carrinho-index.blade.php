@@ -3,7 +3,7 @@
 <div class="container">
     <h1 class="mt-4">Carrinho de Compras</h1>
     @php
-    $total = 0;
+        $total = 0;
     @endphp
     @foreach ($produtos as $produto)
     <div class="card card-item mt-3">
@@ -20,7 +20,7 @@
                     <p class="card-text"><small class="text-muted">Estoque: {{ $produto['estoque'] }}</small></p>
                     <p class="card-text"><small class="text-muted">Valor: R$ {{ $produto['valor'] }}</small></p>
                     @php
-                    $total += $produto['valor'] * $produto['quantidade'];
+                        $total += $produto['valor'] * $produto['quantidade'];
                     @endphp
                     <div class="d-flex justify-content-between">
                         <div class="quantity">
@@ -28,7 +28,7 @@
                             <span id="quantity{{ $produto['id'] }}" class="mx-2">{{ $produto['quantidade'] }}</span>
                             <button id="addItem" class="btn btn-sm btn-secondary" onclick="updateQuantity({{ $produto['id'] }}, 1)">+</button>
                         </div>
-                        <form action="{{ route('carrinho.remove', ['carrinho_id' => $produto['carrinho_id'], 'produto_id' => $produto['produto_carrinho_id']]) }}" method="POST">
+                        <form action="{{ route('carrinho.remove', ['carrinho_id' => $produto['carrinho_id'], 'produto_id' => $produto['produto_id']]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Remover produto?')">
@@ -44,12 +44,7 @@
 
     <div class="text-end">
         <p class="h5 mt-2" id="totalValue">Total: R$ {{ $total }}</p>
-        <form action="{{ route('carrinho.finalizar', $produto['carrinho_id']) }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-success my-3" onclick="return confirm('Finalizar carrinho?')">
-                Finalizar Compra
-            </button>
-        </form>
+        <button class="btn btn-success my-3">Finalizar Compra</button>
     </div>
 </div>
 
