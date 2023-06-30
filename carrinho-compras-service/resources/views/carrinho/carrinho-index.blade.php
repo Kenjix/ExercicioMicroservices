@@ -10,7 +10,7 @@
         <div class="row g-0">
             @if (isset($produto['imagem_link']))
             <div class="col-md-4 d-flex justify-content-center">
-                <img src="{{ $produto['imagem_link']}}" style="width: 200px" class="img-fluid rounded-start carrinho-img" alt="Imagem do Produto">
+                <img src="{{ $produto['imagem_link'] }}" class="img-fluid" width="200px" alt="Imagem do Produto">
             </div>
             @endif
             <div class="col-md-8">

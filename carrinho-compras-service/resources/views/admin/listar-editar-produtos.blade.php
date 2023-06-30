@@ -12,17 +12,19 @@
           <p class="card-text">Valor: R$ {{ $produto['valor'] }}</p>
           <p class="card-text">Estoque: {{ $produto['estoque'] }}</p>
         </div>
-        <div class="card-footer d-flex justify-content-end">
-          <a href="{{ route('produtos.edit', ['id' => $produto['id']]) }}" class="btn btn-primary mr-2">
-            <i class="bi bi-pencil-square"></i>
-          </a>
-          <form action="{{ route('produtos.destroy', ['id' => $produto['id']]) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este produto?')">
-              <i class="bi bi-trash3"></i>
-            </button>
-          </form>
+        <div class="card-footer d-flex justify-content-between">
+          <div>
+            <a href="{{ route('produtos.edit', ['id' => $produto['id']]) }}" class="btn btn-primary btn-sm">
+              <i class="bi bi-pencil-square"></i> Editar
+            </a>
+            <form action="{{ route('produtos.destroy', ['id' => $produto['id']]) }}" method="POST" class="d-inline-block">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este produto?')">
+                <i class="bi bi-trash3"></i> Excluir
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

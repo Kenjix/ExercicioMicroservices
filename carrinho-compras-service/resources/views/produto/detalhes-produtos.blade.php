@@ -1,39 +1,37 @@
 @extends('template.layout')
 @section('main')
-<div class="container">
-    <div class="card mb-3">
-        <div class="row g-0">
-            <div class="col-md-6">
-                <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-                    <img src="{{ $produto['imagem_link'] }}" class="img-fluid" alt="...">
+    <div class="container">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
+                        <img src="{{ $produto['imagem_link'] }}" class="img-fluid img-produto" style="max-width:300px">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card-body d-flex flex-column justify-content-between h-100">
-                        <div class="d-flex justify-content-end">
-                            <!-- Ícone de Favoritos -->
-                            <div class="me-3">
-                                <i class="bi bi-heart"></i>
-                            </div>
-
-                            <!-- Compartilhar -->
-                            <div>
-                                <i class="bi bi-share-fill"></i>
-                            </div>
-                        </div>
+                <div class="col-md-6">
+                    <div class="card-body d-flex flex-column justify-content-between h-100">
                         <!-- Avaliações -->
-                        <div class="small">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i> 4.5 (123 avaliações)
+                        <div>
+                            <h1 class="card-title">{{ $produto['nome'] }}</h1>
+                            <p class="card-text">{{ $produto['descricao'] }}</p>
+                            <div class="small mb-2">
+                                <img src="{{ asset('imagens/star.png') }}" style="width: 14px;">
+                                <img src="{{ asset('imagens/star.png') }}" style="width: 14px;">
+                                <img src="{{ asset('imagens/star.png') }}" style="width: 14px;">
+                                <img src="{{ asset('imagens/star.png') }}" style="width: 14px;">
+                                <img src="{{ asset('imagens/star.png') }}" style="width: 14px;"> 4.5 (123)
+                            </div>
                         </div>
-                        <h1 class="card-title">{{ $produto['nome'] }}</h1>
-                        <p class="card-text">{{ $produto['descricao'] }}</p>
-                        <p class="card-text">
-                        <h4>Valor: R$ {{ $produto['valor'] }}</h4>
-                        </p>
-                        <p class="card-text text-secondary small">Disponível: {{ $produto['estoque'] }} unidades</p>
-                        <!-- Opções de Parcelamento -->
+                        <div>
+                            <p class="card-text">
+                            <h4>R$ {{ $produto['valor'] }}</h4>
+                            </p>
+                        </div>
                         <div class="mb-3">
+                            <p class="card-text text-secondary small">Disponível: {{ $produto['estoque'] }} unidades</p>
+                        </div>
+                        <!-- Opções de Parcelamento -->
+                        <div class="mb-3 mt-3">
                             <label for="parcelamento">Opções de Parcelamento:</label>
                             <select class="form-select form-select-sm narrow-select mt-3" id="parcelamento"
                                 style="width: 300px;">
@@ -50,35 +48,14 @@
                                 <input type="hidden" name="carrinho_id" value="{{ session('carrinho_id', null) }}">
                                 <input type="hidden" name="produto_id" value="{{ $produto['id'] }}">
                                 <input type="hidden" name="quantidade" value="1">
-                                <button type="submit" class="btn btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    <i class="bi bi-cart"></i> Comprar
+                                <button type="submit" class="btn btn-success rounded-pill">
+                                    <i class="bi bi-cart"></i> Comprar agora
+                                </button>
+                                <button type="submit" class="btn btn-outline-success rounded-pill liveToastBtn"
+                                    data-toast-id="liveToast" id="liveToastBtn">
+                                    Adicionar ao carrinho
                                 </button>
                             </form>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Produto Adicionado ao Carrinho
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Deseja ir ao carrinho?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Continuar comprando</button>
-                                            <button type="button" class="btn btn-primary" id="irCarrinhoBtn">Ir ao
-                                                carrinho</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -110,9 +87,40 @@
             </div>
         </div>
     </div>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="{{ asset('imagens/adicionar.png') }}" class="rounded me-2" alt="..." style="width: 14px;">
+                <strong class="me-auto">Adicionado ao carrinho</strong>
+                <small>agora</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Seu produto foi adicionado ao carrinho!
+            </div>
+        </div>
+    </div>
     <script>
-        document.getElementById('irCarrinhoBtn').addEventListener('click', function() {
-            window.location.href = "{{ route('carrinho.index') }}";
+        var toastTrigger = document.getElementById('liveToastBtn');
+        var toastLiveExample = document.getElementById('liveToast');
+        if (toastTrigger) {
+            toastTrigger.addEventListener('click', function() {
+                var toast = new bootstrap.Toast(toastLiveExample);
+                toast.show();
+            });
+        }
+
+        document.querySelector('.btn.btn-success.rounded-pill').addEventListener('click', function(event) {
+            event.preventDefault();
+            var form = document.querySelector('form');
+
+            // Adicionar o item ao carrinho enviando o formulário
+            form.submit();
+
+            // Redirecionar para a página do carrinho após um pequeno atraso (200ms)
+            setTimeout(function() {
+                window.location.href = "{{ route('carrinho.index') }}";
+            }, 200);
         });
     </script>
 @endsection
